@@ -25,8 +25,8 @@ def completeTask(tasks: list, taskIndex: int):
 
 def main():
     tasks = []
-
-    while True:
+    userChoice = int(input("1 - Start App | 2 - Stop App: "))
+    while userChoice != 2:
         showMenu()
         userInput = int(input("Enter choice (1-5): "))
         if userInput == 1:
@@ -34,6 +34,18 @@ def main():
         elif userInput == 2:
             newTask = input("Enter task that you want to add to the list: ")
             addTask(tasks, newTask)
-
-
+            print("Task added successfully!")
+        elif userInput == 3:
+            removeIndex = int(input("Enter the index of the task which you would like to remove: ")) - 1
+            removeTask(tasks, removeIndex)
+            print("Task removed successfully!")
+        elif userInput == 4:
+            markTask = int(input("Enter the index of the task which you would like to mark as completed: ")) - 1
+            completeTask(tasks, markTask)
+            print("Task completed successfully!")
+        elif userInput == 5:
+            print("Exiting...")
+            break
+        userChoice = int(input("1 - Continue | 2 - Stop App: "))
 main()
+print("Exiting...")
