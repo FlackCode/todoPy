@@ -1,3 +1,22 @@
+import json
+import os
+
+path = "tasks.txt"
+
+def loadUserTasks():
+    if not os.path.exists(path):
+        saveUserTasks([])
+    try:
+        with open(path, "r") as file:
+            tasks = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        tasks = []
+    return tasks
+
+def saveUserTasks(task):
+    with open(path, "w") as file:
+        json.dump(task, file, indent=4)
+
 def showMenu():
     print("Todo List Menu:")
     print("1 - View all tasks")
@@ -24,7 +43,8 @@ def completeTask(tasks: list, taskIndex: int):
     tasks[taskIndex]["completed"] = True
 
 def main():
-    tasks = []
+    loadUserTasks()
+    tasks = loadUserTasks()
     userChoice = int(input("1 - Start App | 2 - Stop App: "))
     while userChoice != 2:
         showMenu()
@@ -47,5 +67,6 @@ def main():
             print("Exiting...")
             break
         userChoice = int(input("1 - Continue | 2 - Stop App: "))
+        saveUserTasks(tasks)
 main()
 print("Exiting...")
